@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2be993a2-ed8c-4ba5-96f0-c418e1557836" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.sdk7-scene-template.dir/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.sdk7-scene-template.dir/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.sdk7-scene-template.dir/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.sdk7-scene-template.dir/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST-main.crdt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scene/TEST-main.composite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scene/monster.glb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Book_05.glb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/FanstasyPack_TX.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Monster.glb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thumbnails/monster.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene.json" beforeDir="false" afterPath="$PROJECT_DIR$/scene.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/factory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/factory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../unity-renderer/unity-renderer/Assets/DCLPlugins/ECS7/Systems/TweenSystem/ECSTweenSystem.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectId" id="2XZSdI5EvYPWbegst9Hguvxsdz2" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/Rider.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/pravus/Library/Application Support/JetBrains/Rider2022.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/pravus/Library/Application Support/JetBrains/Rider2022.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/pravus/.local/share/Symbols/src&quot;
+    ]
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2be993a2-ed8c-4ba5-96f0-c418e1557836" name="Changes" comment="" />
+      <created>1698835194536</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698835194536</updated>
+      <workItem from="1698835201109" duration="10480000" />
+      <workItem from="1699875014286" duration="1648000" />
+      <workItem from="1699917395502" duration="539000" />
+      <workItem from="1700055166070" duration="2195000" />
+      <workItem from="1700222431798" duration="1069000" />
+      <workItem from="1700520520879" duration="1017000" />
+      <workItem from="1700666585075" duration="7030000" />
+      <workItem from="1700828211233" duration="2035000" />
+      <workItem from="1701106487410" duration="5744000" />
+      <workItem from="1701300058769" duration="1666000" />
+      <workItem from="1701353686381" duration="854000" />
+      <workItem from="1701437745096" duration="1012000" />
+      <workItem from="1701779783974" duration="2874000" />
+      <workItem from="1702003902153" duration="1573000" />
+      <workItem from="1702062071180" duration="27863000" />
+      <workItem from="1702394545998" duration="84000" />
+      <workItem from="1702486620880" duration="338000" />
+      <workItem from="1702517198654" duration="620000" />
+      <workItem from="1702566633987" duration="617000" />
+      <workItem from="1702579845629" duration="1817000" />
+      <workItem from="1704197392858" duration="4027000" />
+      <workItem from="1704328241773" duration="4584000" />
+      <workItem from="1704707579793" duration="104000" />
+      <workItem from="1704711490910" duration="1043000" />
+      <workItem from="1704722370576" duration="748000" />
+      <workItem from="1704733003891" duration="1990000" />
+      <workItem from="1704758450909" duration="3000" />
+      <workItem from="1704758849919" duration="28000" />
+      <workItem from="1704761576916" duration="318000" />
+      <workItem from="1704762843656" duration="4886000" />
+      <workItem from="1704891821725" duration="495000" />
+      <workItem from="1704928310388" duration="689000" />
+      <workItem from="1704994046565" duration="1291000" />
+      <workItem from="1705058053707" duration="1206000" />
+      <workItem from="1705088765397" duration="102000" />
+      <workItem from="1705318169393" duration="616000" />
+      <workItem from="1705424969034" duration="393000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
