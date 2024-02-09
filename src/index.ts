@@ -1,38 +1,28 @@
 import {
-  Animator,
-  AudioSource,
-  AvatarAttach,
-  engine,
-  GltfContainer,
-  InputAction,
-  Material,
-  MeshCollider,
-  MeshRenderer,
-  pointerEventsSystem,
-  Transform,
-  VisibilityComponent,
-  AvatarModifierArea,
-  AvatarModifierType, 
-  Schemas,
-  raycastSystem,
-  RaycastQueryType,
-  AvatarShape,
-  executeTask,
-  Tween,
-  EasingFunction, 
+    AvatarAnchorPointType,
+    AvatarAttach,
     ColliderLayer,
-    PointerEvents,
-    PointerEventType,
-    AvatarAnchorPointType
+    engine,
+    InputAction,
+    MeshCollider,
+    MeshRenderer,
+    pointerEventsSystem,
+    Transform,
+    AvatarShape,
+     CameraMode,
+    CameraType,
+    Material,
+    TextShape,
+    NftShape,
+    AvatarModifierType,
+    AvatarModifierArea,
+    executeTask
 } from '@dcl/sdk/ecs'
 
-import { Color4, Quaternion, Vector3 } from '@dcl/sdk/math'
-import { circularSystem } from './systems'
-import { setupUi } from './ui'
-import { Spinner } from './components'
-import { createCube } from './factory'
-import { movePlayerTo, openExternalUrl } from "~system/RestrictedActions";
-import { getUserData } from "~system/UserIdentity";
+import { Quaternion, Vector3, Color4 } from '@dcl/sdk/math'
+import { getRandomHexColor } from "./utils";
+import { createCube } from "./factory";
+import { getUserData } from '~system/UserIdentity'
 
 /*import { initAssetPacks } from '@dcl/asset-packs/dist/scene-entrypoint'
 // You can remove this if you don't use any asset packs
@@ -73,7 +63,8 @@ export function main() {
     )
   }*/
   
-  /*const excludedUser = '0x51777c0b8DBA8B4dfE8a1c3d0a1eDAA5B139B4e0'
+  /*const excludedUser1 = '0x51777c0b8DBA8B4dfE8a1c3d0a1eDAA5B139B4e0'
+  const excludedUser2 = '0xffc2b1437e9a31adade929e4630c9075fece7d91'
   // const excludedUser = 'USER-WALLET-ADDRESS-GOES-HERE'
   const avatarModifierAreaEntity = engine.addEntity()
   const areaSize = Vector3.create(4, 4, 4)
@@ -95,13 +86,13 @@ export function main() {
       { entity: cube, opts: { button: InputAction.IA_POINTER, hoverText: 'toggle excluded id' } },
       () => {
         const mutable = AvatarModifierArea.getMutable(avatarModifierAreaEntity)
-        if (mutable.excludeIds.includes(excludedUser)) {
+        if (mutable.excludeIds.includes(excludedUser1) && mutable.excludeIds.includes(excludedUser2)) {
           mutable.excludeIds = []
-          console.log(`PRAVS - REMOVED excluded ID -> ${mutable.excludeIds[0]}`)
+          console.log(`PRAVS - REMOVED excluded users`)
         }
         else {
-          mutable.excludeIds = [excludedUser]
-          console.log(`PRAVS - ADDED excluded ID -> ${mutable.excludeIds[0]}`)
+          mutable.excludeIds = [excludedUser1, excludedUser2]
+          console.log(`PRAVS - ADDED excluded users`)
         }
       }
   )*/
@@ -238,68 +229,87 @@ engine.addSystem((dt) => {
   }
 })*/
 
-/*const avatarShapeEntity1 = engine.addEntity()
-Transform.create(avatarShapeEntity1, {
-    position: Vector3.create(6, 0.1, 8),
-    rotation: Quaternion.fromEulerDegrees(0, 180, 0)
-})
-AvatarShape.create(avatarShapeEntity1, {
-    wearables: [
-      "urn:decentraland:off-chain:base-avatars:eyebrows_00",
-      "urn:decentraland:off-chain:base-avatars:mouth_00",
-      "urn:decentraland:off-chain:base-avatars:eyes_00",
-        "urn:decentraland:off-chain:base-avatars:blue_tshirt",
-        "urn:decentraland:off-chain:base-avatars:brown_pants",
-        "urn:decentraland:off-chain:base-avatars:classic_shoes",
-        "urn:decentraland:off-chain:base-avatars:cornrows"
-    ],
-    id: "dagon-id",
-    name: "Dagon", 
-    bodyShape: "urn:decentraland:off-chain:base-avatars:BaseMale",
-    hairColor: { "r": 0.9281997, "g": 0.997558951, "b": 0.715044141 },
-    skinColor: { "r": 0.78, "g": 0.53, "b": 0.26 },
-    emotes: []
-})
-
-const avatarShapeEntity2 = engine.addEntity()
-Transform.create(avatarShapeEntity2, {
-    position: Vector3.create(10, 0.1, 8),
-    rotation: Quaternion.fromEulerDegrees(0, 180, 0)
-})
-AvatarShape.create(avatarShapeEntity2, {
-    wearables: [
-        "urn:decentraland:off-chain:base-avatars:eyebrows_00",
-        "urn:decentraland:off-chain:base-avatars:mouth_00",
-        "urn:decentraland:off-chain:base-avatars:eyes_00",
-        "urn:decentraland:ethereum:collections-v1:xmas_2019:santa_facial_hair",
-        "urn:decentraland:matic:collections-v2:0x4334a820f556a54845a35f8aad5986aecdf07d43:1",
-        "urn:decentraland:matic:collections-v2:0x3a53afcd4f3a40953fa1217a56265909bb2f6309:0",
-        "urn:decentraland:ethereum:collections-v1:sugarclub_yumi:yumi_retro_shades_eyewear",
-        "urn:decentraland:matic:collections-v2:0x4334a820f556a54845a35f8aad5986aecdf07d43:0"
-    ],
-    id: "cthulhu-id",
-    name: "Cthulhu",
-    hairColor: Color4.Red(),
-    skinColor: Color4.Green(),
-    emotes: []
-})
-let timer = 5
-engine.addSystem((dt) => {
-    timer -= dt
-    if (timer <= 0) {
-        timer = 5        
-        Transform.getMutable(avatarShapeEntity1).position = {
-            x: 2 + Math.random() * 4,
-            y: 0.1,
-            z: 4 + Math.random() * 4
-        }
-        Transform.getMutable(avatarShapeEntity2).position = {
-            x: 7 + Math.random() * 4,
-            y: 0.1,
-            z: 4 + Math.random() * 4
-        }
+/*const avatarShapeSpawner1 = engine.addEntity()
+MeshRenderer.setBox(avatarShapeSpawner1)
+MeshCollider.setBox(avatarShapeSpawner1, ColliderLayer.CL_POINTER)
+Transform.create(avatarShapeSpawner1, { position: Vector3.create(7, 1, 4), scale: Vector3.create(0.5, 0.5, 0.5) })
+pointerEventsSystem.onPointerDown(
+    { entity: avatarShapeSpawner1, opts: { button: InputAction.IA_PRIMARY, hoverText: 'spawn avatar 1', maxDistance: 5 } },
+    () => {
+        const avatarShapeEntity1 = engine.addEntity()
+        Transform.create(avatarShapeEntity1, {
+            position: Vector3.create(7, 0.1, 8),
+            rotation: Quaternion.fromEulerDegrees(0, 180, 0)
+        })
+        AvatarShape.create(avatarShapeEntity1, {
+            wearables: [
+                "urn:decentraland:off-chain:base-avatars:eyebrows_00",
+                "urn:decentraland:off-chain:base-avatars:mouth_00",
+                "urn:decentraland:off-chain:base-avatars:eyes_00",
+                "urn:decentraland:off-chain:base-avatars:blue_tshirt",
+                "urn:decentraland:off-chain:base-avatars:brown_pants",
+                "urn:decentraland:off-chain:base-avatars:classic_shoes",
+                "urn:decentraland:off-chain:base-avatars:cornrows"
+            ],
+            id: "dagon-id",
+            name: "Dagon",
+            bodyShape: "urn:decentraland:off-chain:base-avatars:BaseMale",
+            hairColor: { "r": 0.9281997, "g": 0.997558951, "b": 0.715044141 },
+            skinColor: { "r": 0.78, "g": 0.53, "b": 0.26 },
+            emotes: []
+        })
     }
-})*/
+)
+
+const avatarShapeSpawner2 = engine.addEntity()
+MeshRenderer.setBox(avatarShapeSpawner2)
+MeshCollider.setBox(avatarShapeSpawner2, ColliderLayer.CL_POINTER)
+Transform.create(avatarShapeSpawner2, { position: Vector3.create(10, 1, 4), scale: Vector3.create(0.5, 0.5, 0.5) })
+pointerEventsSystem.onPointerDown(
+    { entity: avatarShapeSpawner2, opts: { button: InputAction.IA_PRIMARY, hoverText: 'spawn avatar 2', maxDistance: 5 } },
+    () => {
+        const avatarShapeEntity2 = engine.addEntity()
+        Transform.create(avatarShapeEntity2, {
+            position: Vector3.create(10, 0.1, 8),
+            rotation: Quaternion.fromEulerDegrees(0, 180, 0)
+        })
+        AvatarShape.create(avatarShapeEntity2, {
+            wearables: [
+                "urn:decentraland:off-chain:base-avatars:eyebrows_00",
+                "urn:decentraland:off-chain:base-avatars:mouth_00",
+                "urn:decentraland:off-chain:base-avatars:eyes_00",
+                "urn:decentraland:ethereum:collections-v1:xmas_2019:santa_facial_hair",
+                "urn:decentraland:matic:collections-v2:0x4334a820f556a54845a35f8aad5986aecdf07d43:1",
+                "urn:decentraland:matic:collections-v2:0x3a53afcd4f3a40953fa1217a56265909bb2f6309:0",
+                "urn:decentraland:ethereum:collections-v1:sugarclub_yumi:yumi_retro_shades_eyewear",
+                "urn:decentraland:matic:collections-v2:0x4334a820f556a54845a35f8aad5986aecdf07d43:0"
+            ],
+            id: "cthulhu-id",
+            name: "Cthulhu",
+            hairColor: Color4.Red(),
+            skinColor: Color4.Green(),
+            emotes: []
+        })
+    }
+)*/
+
+// let timer = 5
+// engine.addSystem((dt) => {
+//     timer -= dt
+//     if (timer <= 0) {
+//         timer = 5        
+//         Transform.getMutable(avatarShapeEntity1).position = {
+//             x: 2 + Math.random() * 4,
+//             y: 0.1,
+//             z: 4 + Math.random() * 4
+//         }
+//         Transform.getMutable(avatarShapeEntity2).position = {
+//             x: 7 + Math.random() * 4,
+//             y: 0.1,
+//             z: 4 + Math.random() * 4
+//         }
+//     }
+// })
 
 /*executeTask(async () => {
   let userData = await getUserData({})
@@ -439,42 +449,132 @@ Tween.create(boxEntity, {
 })*/
 
 // AVATAR ATTACH
-/*
-export let currentPlayerId: string
-void executeTask(async () => {
-    const user = await getUserData({})
-    if (!user.data) return
-    currentPlayerId = user.data?.userId
-})
-const glassEntity = engine.addEntity()
-MeshRenderer.setBox(glassEntity)
-MeshCollider.setBox(glassEntity, ColliderLayer.CL_POINTER)
-Transform.create(glassEntity, { position: Vector3.create(8, 1, 8), scale: Vector3.create(0.1, 0.2, 0.1) })
+// export let currentPlayerId: string
+// void executeTask(async () => {
+//     const user = await getUserData({})
+//     if (!user.data) return
+//     currentPlayerId = user.data?.userId
+// })
+/*const pickableEntity = engine.addEntity()
+MeshRenderer.setBox(pickableEntity)
+MeshCollider.setBox(pickableEntity, ColliderLayer.CL_POINTER)
+Transform.create(pickableEntity, { position: Vector3.create(4, 1, 4), scale: Vector3.create(0.3, 0.3, 0.3) })
 pointerEventsSystem.onPointerDown(
-    { entity: glassEntity, opts: { button: InputAction.IA_PRIMARY, hoverText: 'pick up', maxDistance: 5 } },
-    () => {        
-        AvatarAttach.create(glassEntity, {
-            avatarId: currentPlayerId,
-            anchorPointId: AvatarAnchorPointType.AAPT_RIGHT_HAND
-        })
-        Transform.createOrReplace(glassEntity, {
-            position: Vector3.create(0, 0.225, 0),
-            rotation: Quaternion.fromEulerDegrees(180, -90, -60),
-            scale: Vector3.create(0.1, 0.2, 0.1)
+    { entity: pickableEntity, opts: { button: InputAction.IA_PRIMARY, hoverText: 'pick up', maxDistance: 5 } },
+    () => {
+        AvatarAttach.create(pickableEntity, {
+            anchorPointId: AvatarAnchorPointType.AAPT_LEFT_HAND
         })
     }
 )*/
 
-function checkCameraMode() {
-    if (!Transform.has(engine.CameraEntity)) return
-
-    let cameraEntity = CameraMode.get(engine.CameraEntity)
-
-    if (cameraEntity.mode == CameraType.CT_THIRD_PERSON) {
-        console.log('The player is using the 3rd person camera')
+// CAMERA MODE
+/*const boxEntity = engine.addEntity()
+Transform.create(boxEntity, {
+    position: Vector3.create(8, 1, 8),
+})
+MeshRenderer.setBox(boxEntity)
+let lastCameraType = -1
+engine.addSystem((dt) => {
+    let cameraMode = CameraMode.getOrNull(engine.CameraEntity)
+    if (cameraMode) {
+        if (cameraMode.mode != lastCameraType) {
+            switch (cameraMode.mode) {
+                case CameraType.CT_THIRD_PERSON:
+                    Material.setPbrMaterial(boxEntity, { albedoColor: Color4.Yellow() })
+                    console.log('The player is using the 3RD-PERSON camera')
+                    break
+                case CameraType.CT_FIRST_PERSON:
+                    Material.setPbrMaterial(boxEntity, { albedoColor: Color4.Green() })
+                    console.log('The player is using the 1ST-PERSON camera')    
+                    break
+            }
+            lastCameraType = cameraMode.mode
+        }
     } else {
-        console.log('The player is using the 1st person camera')
+        console.log("CameraEntity doesn't have a CameraMode component!")
+        Material.setPbrMaterial(boxEntity, { albedoColor: Color4.Gray() })
     }
-}
 
-engine.addSystem(checkCameraMode)
+    const cameraPos = Transform.has(engine.CameraEntity)
+    if (cameraPos) {
+        Transform.getMutable(boxEntity).position = Transform.get(engine.CameraEntity).position        
+    } else {
+        console.log("CameraEntity doesn't have a Transform component!")        
+    }
+})*/
+
+// if (message.entityId === 2 && message.componentId === 1072) {
+//     console.log(`PRAVS - parceChunkMessage() - entity: ${message.entityId}`)
+// }
+
+// CHANGE CUBE COLOR RANDOMLY
+/*
+const boxEntity = engine.addEntity()
+Transform.create(boxEntity, {
+    position: Vector3.create(8, 1, 8),
+})
+MeshRenderer.setBox(boxEntity)
+Material.setPbrMaterial(boxEntity, { albedoColor: Color4.Gray() })
+
+let timer = 5
+engine.addSystem((dt) => {
+    timer -= dt    
+    if (timer <= 0){
+        Material.setPbrMaterial(boxEntity, { albedoColor: Color4.fromHexString(getRandomHexColor()) })
+        console.log('PRAVS - CHANGES CUBE MATERIAL COLOR')
+        timer = 5
+    }
+})*/
+
+// Text Shape
+/*const textShapeEntity = engine.addEntity()
+Transform.create(textShapeEntity, {
+    position: Vector3.create(8, 1, 8),
+})
+const textsList = [
+    'IA IA!', 
+    'Cthulhu Fhtaghn!',
+    'IA IA!',
+    'Dagon Fhtaghn!',
+    'IA IA!',
+    'Decentraland Fhtaghn!',
+]
+let textsIndex = -1
+TextShape.create(textShapeEntity, {
+    text: '',
+    outlineWidth: 0.05,
+    outlineColor: Color4.Black(),
+    textColor: Color4.fromHexString(getRandomHexColor())
+})
+
+const timeBetweenChanges = 1
+let timer = timeBetweenChanges
+engine.addSystem((dt) => {
+    timer -= dt    
+    if (timer <= 0) {
+        textsIndex++
+        if (textsIndex == textsList.length)
+            textsIndex = 0
+        const mutable = TextShape.getMutable(textShapeEntity)
+        mutable.text = textsList[textsIndex]
+        mutable.textColor = Color4.fromHexString(getRandomHexColor())
+        
+        timer = timeBetweenChanges
+    }
+})*/
+
+// NFTShape
+/*const nftEntity = engine.addEntity()
+Transform.create(nftEntity, {
+    position: Vector3.create(4, 1, 8),
+    scale: Vector3.create(3, 3, 3)
+})
+NftShape.create(nftEntity, {
+    urn: 'urn:decentraland:ethereum:erc721:0x06012c8cf97bead5deae237070f9587f8e7a266d:1631847'
+})*/
+
+/*executeTask(async () => {
+    let userData = await getUserData({})
+    console.log(`PRAVS - ${userData.data?.userId}`)
+})*/
