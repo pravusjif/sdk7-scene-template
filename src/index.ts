@@ -16,7 +16,8 @@ import {
     NftShape,
     AvatarModifierType,
     AvatarModifierArea,
-    executeTask
+    executeTask,
+    CameraModeArea,
 } from '@dcl/sdk/ecs'
 
 import { Quaternion, Vector3, Color4 } from '@dcl/sdk/math'
@@ -67,23 +68,23 @@ export function main() {
   const excludedUser2 = '0xffc2b1437e9a31adade929e4630c9075fece7d91'
   // const excludedUser = 'USER-WALLET-ADDRESS-GOES-HERE'
   const avatarModifierAreaEntity = engine.addEntity()
-  const areaSize = Vector3.create(4, 4, 4)
+  const avatarModifierAreaSize = Vector3.create(4, 4, 4)
   Transform.create(avatarModifierAreaEntity, { 
-    position: Vector3.create(8, 1, 8),
-    scale: areaSize
+    position: Vector3.create(0, 1, 24),
+    scale: avatarModifierAreaSize
   })
   AvatarModifierArea.create(avatarModifierAreaEntity, {
-    area: areaSize,
+    area: avatarModifierAreaSize,
     modifiers: [AvatarModifierType.AMT_HIDE_AVATARS],
     // modifiers: [AvatarModifierType.AMT_DISABLE_PASSPORTS],
     excludeIds: []
   })
   MeshRenderer.setBox(avatarModifierAreaEntity)
   Material.setPbrMaterial(avatarModifierAreaEntity, { albedoColor: Color4.create(0.5, 0.5, 0.5, 0.5) })
-  const cube = createCube(8, 1, 12, false)
-  MeshCollider.setBox(cube)
+  const avatarModifierAreaCube = createCube(8, 1, 28, false)
+  MeshCollider.setBox(avatarModifierAreaCube)
   pointerEventsSystem.onPointerDown(
-      { entity: cube, opts: { button: InputAction.IA_POINTER, hoverText: 'toggle excluded id' } },
+      { entity: avatarModifierAreaCube, opts: { button: InputAction.IA_POINTER, hoverText: 'toggle excluded id' } },
       () => {
         const mutable = AvatarModifierArea.getMutable(avatarModifierAreaEntity)
         if (mutable.excludeIds.includes(excludedUser1) && mutable.excludeIds.includes(excludedUser2)) {
@@ -96,6 +97,70 @@ export function main() {
         }
       }
   )*/
+    
+    // CAMERA MODE AREA
+    /*const cameraModeAreaEntity = engine.addEntity()
+    const areaSize = Vector3.create(4, 4, 4)
+    Transform.create(cameraModeAreaEntity, {
+        position: Vector3.create(5.5, 1, 8),
+        scale: areaSize,
+        rotation: Quaternion.fromEulerDegrees(0, 45, 0)
+    })
+    CameraModeArea.create(cameraModeAreaEntity, {
+        area: areaSize,
+        mode: CameraType.CT_FIRST_PERSON
+    })
+    MeshRenderer.setBox(cameraModeAreaEntity)
+    Material.setPbrMaterial(cameraModeAreaEntity, { albedoColor: Color4.create(0.5, 0.5, 0.5, 0.5) })
+    
+    const cube = createCube(8, 1, 12, false)
+    MeshCollider.setBox(cube)
+    pointerEventsSystem.onPointerDown(
+        { entity: cube, opts: { button: InputAction.IA_POINTER, hoverText: 'reposition area' } },
+        () => {
+            // const mutable = CameraModeArea.getMutable(cameraModeAreaEntity)
+            // if (mutable.mode == CameraType.CT_FIRST_PERSON) {
+            //     mutable.mode = CameraType.CT_THIRD_PERSON
+            //     console.log(`PRAVS - Camera mode changed to THIRD PERSON`)
+            // } else {
+            //     mutable.mode = CameraType.CT_FIRST_PERSON
+            //     console.log(`PRAVS - Camera mode changed to FIRST PERSON`)
+            // }
+            
+            // if(mutable.area)
+            //     mutable.area = Vector3.scale(Vector3.create(mutable.area.x, mutable.area.y, mutable.area.z), 0.75)
+            const mutable = Transform.getMutable(cameraModeAreaEntity)
+            mutable.position = Vector3.create(Math.random() * 16, 1, 1 + Math.random() * 16)
+            mutable.rotation = Quaternion.fromEulerDegrees(Math.random() * 360, Math.random() * 360, Math.random() * 360)
+        }
+    )
+    
+    const cameraModeAreaEntity2 = engine.addEntity()
+    Transform.create(cameraModeAreaEntity2, {
+        position: Vector3.create(8.5, 1, 8),
+        scale: areaSize,
+    })
+    CameraModeArea.create(cameraModeAreaEntity2, {
+        area: areaSize,
+        mode: CameraType.CT_THIRD_PERSON
+    })
+    MeshRenderer.setBox(cameraModeAreaEntity2)
+    Material.setPbrMaterial(cameraModeAreaEntity2, { albedoColor: Color4.create(0.5, 0.5, 0.5, 0.5) })*/
+    
+    /*const areaSize2= Vector3.create(15.9, 15.9, 15.9)
+    const cameraModeAreaEntity3 = engine.addEntity()
+    Transform.create(cameraModeAreaEntity3, {
+        position: Vector3.create(8, 1, 8),
+        scale: areaSize2,
+    })
+    CameraModeArea.create(cameraModeAreaEntity3, {
+        area: areaSize2,
+        mode: CameraType.CT_FIRST_PERSON
+    })
+    MeshRenderer.setBox(cameraModeAreaEntity3)
+    Material.setPbrMaterial(cameraModeAreaEntity3, { albedoColor: Color4.create(0.5, 0.5, 0.5, 0.5) })*/
+    
+    
   
   // For testing manifest builder...
   /*const gltfEntity = engine.addEntity()
@@ -572,9 +637,23 @@ Transform.create(nftEntity, {
 })
 NftShape.create(nftEntity, {
     urn: 'urn:decentraland:ethereum:erc721:0x06012c8cf97bead5deae237070f9587f8e7a266d:1631847'
+    // urn: 'urn:decentraland:ethereum:erc721:0x06012c8cf97bead5deae237070f9587f8e7a266d:558536'
+    // urn: 'urn:decentraland:ethereum:erc721:0xc8adfb4d437357d0a656d4e62fd9a6d22e401aa0:3217'
+    // urn: 'urn:decentraland:ethereum:erc721:0x3d2f64f34d163389ff9984d63325ea5a0a0181d6:2'
+    // urn: 'urn:decentraland:ethereum:erc721:0xd35147be6401dcb20811f2104c33de8e97ed6818:18413'
 })*/
 
 /*executeTask(async () => {
     let userData = await getUserData({})
-    console.log(`PRAVS - ${userData.data?.userId}`)
+    console.log(`PRAVS - user id: ${userData.data?.userId}`)
+    console.log(`PRAVS - display name: ${userData.data?.displayName}`)
+    console.log(`PRAVS - public key: ${userData.data?.publicKey}`)
+    console.log(`PRAVS - web3?: ${userData.data?.hasConnectedWeb3}`)
+    console.log(`PRAVS - bodyshape: ${userData.data?.avatar?.bodyShape}`)
+    console.log(`PRAVS - WEARABLES AMOUNT: ${userData.data?.avatar?.wearables.length}`)
+    if (userData.data?.avatar?.wearables) {
+        for (const wearable of userData.data?.avatar?.wearables) {
+            console.log(`PRAVS - wearable: ${wearable}`)
+        }
+    }
 })*/
