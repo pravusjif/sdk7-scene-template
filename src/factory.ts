@@ -22,6 +22,7 @@ export function createCube(x: number, y: number, z: number, spawner = true): Ent
   Cube.create(entity)
 
   Transform.create(entity, { position: { x, y, z } })
+  console.log(`CREATING CUBE AT (${x}, ${y}, ${z})`)
 
   // set how the cube looks and collides
   MeshRenderer.setBox(entity)
@@ -33,19 +34,19 @@ export function createCube(x: number, y: number, z: number, spawner = true): Ent
 
   // if it is a spawner, then we set the pointer hover feedback
   if (spawner) {
-    // PointerEvents.create(entity, {
-    //   pointerEvents: [
-    //     {
-    //       eventType: PointerEventType.PET_DOWN,
-    //       eventInfo: {
-    //         button: InputAction.IA_PRIMARY,
-    //         hoverText: 'Press E to spawn',
-    //         maxDistance: 100,
-    //         showFeedback: true
-    //       }
-    //     }
-    //   ]
-    // })
+    /*PointerEvents.create(entity, {
+      pointerEvents: [
+        {
+          eventType: PointerEventType.PET_DOWN,
+          eventInfo: {
+            button: InputAction.IA_PRIMARY,
+            hoverText: 'Press E to spawn',
+            maxDistance: 100,
+            showFeedback: true
+          }
+        }
+      ]
+    })*/
 
     pointerEventsSystem.onPointerDown(
         {
@@ -58,8 +59,11 @@ export function createCube(x: number, y: number, z: number, spawner = true): Ent
           },
         },
         function () {
-          // createCube(1 + Math.random() * 8, Math.random() * 8, 1 + Math.random() * 8, false)
-          movePlayerTo({ newRelativePosition: { x: 8, y: 1, z: 8 }})
+          const randomX = 1 + Math.random() * 8
+          const randomY = Math.random() * 8
+          const randomZ = 1 + Math.random() * 8
+          createCube(randomX, randomY, randomZ, false)
+          // movePlayerTo({ newRelativePosition: { x: 8, y: 1, z: 8 }})
         }
     )
   }

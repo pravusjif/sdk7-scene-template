@@ -10,9 +10,9 @@ import { createCube } from './factory'
 import {openExternalUrl} from "~system/RestrictedActions";
 
 export function setupUi() {
-  // ReactEcsRenderer.setUiRenderer(uiComponent)
+  ReactEcsRenderer.setUiRenderer(uiComponent)
   // ReactEcsRenderer.setUiRenderer(uiComponent2)
-  ReactEcsRenderer.setUiRenderer(uiComponent3)
+  // ReactEcsRenderer.setUiRenderer(uiComponent3)
   // ReactEcsRenderer.setUiRenderer(uiComponent4)
   // ReactEcsRenderer.setUiRenderer(uiComponent5)
   // ReactEcsRenderer.setUiRenderer(uiComponent6)
@@ -51,6 +51,9 @@ const uiComponent = () => (
           },
         }}
         uiText={{ value: 'SDK7', fontSize: 18 }}
+        onMouseDown={() => {console.log('THUMBNAIL IMAGE clicked!')}}
+        onMouseEnter={() => {console.log('THUMBNAIL IMAGE ENTERED!!!')}}
+        onMouseLeave={() => {console.log('THUMBNAIL IMAGE EXITED!!!')}}
       />
       <Label
         onMouseDown={() => {console.log('Player Position clicked !')}}
